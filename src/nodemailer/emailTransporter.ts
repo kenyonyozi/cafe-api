@@ -24,16 +24,7 @@ function sendEmail(to, subject, template, context) {
     // use a template file with nodemailer
     transporter.use('compile', hbs(handlebarOptions));
 
-    // const mailOptions = {
-    //     from: '"david" <david.rb.pmsmaven@gmail.com>', // sender address
-    //     to: 'davidmatovu88@gmail.com', // list of receivers
-    //     subject: 'New Reservation!',
-    //     template: 'email', // the name of the template file i.e email.handlebars
-    //     context: {
-    //         name: 'David', // replace {{name}} with David
-    //         company: 'My Company', // replace {{company}} with My Company
-    //     },
-    // };
+
 
     let templateName;
     if (template === 'reservationEmail') {
@@ -45,14 +36,13 @@ function sendEmail(to, subject, template, context) {
     }
 
     const confirmUrl =
-        'http://localhost:5000/reservations/6468c694b2656c770b60f7bb/confirm';
+    `http://localhost:5000/reservations/${context.reservationId}/confirm`;
 
     const mailOptions = {
         from: '"david" <david.rb.pmsmaven@gmail.com>',
         to: to,
         subject: subject,
         template: templateName,
-        // context: context,
         context: {
             ...context,
             confirmUrl: confirmUrl,

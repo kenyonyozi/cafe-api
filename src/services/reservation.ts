@@ -23,6 +23,7 @@ class ReservationService {
             name: reservationData.firstName,
             email: reservationData.email,
             numberOfPeople: reservationData.numberOfPeople,
+            reservationId: createdReservation._id, // Add reservationId to the email context
         };
 
         sendEmail(restaurantEmail, emailSubject, emailTemplate, emailContext);
