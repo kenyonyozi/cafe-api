@@ -16,7 +16,7 @@ class ReservationService {
         const createdReservation = await reservation.save();
 
         // Send email notification to the restaurant
-        const restaurantEmail = 'pmsmaven@gmail.com'; // to be replaced with the restaurant's email address
+        const restaurantEmail = 'davidmatovu88@gmail.com'; // to be replaced with the restaurant's email address
         const emailSubject = 'New Reservation!';
         const emailTemplate = 'reservationEmail'; // from email.handlebars template
         const emailContext = {
@@ -49,7 +49,9 @@ class ReservationService {
         const emailTemplate = 'confirmationEmail'; // from the email.handlebars template
         const emailContext = {
             name: reservation.firstName,
-            company: 'My Company',
+            email: reservation.email,
+            numberOfPeople: reservation.numberOfPeople,
+            company: 'Cafe Name',
         };
 
         sendEmail(clientEmail, emailSubject, emailTemplate, emailContext);

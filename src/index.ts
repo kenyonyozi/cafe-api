@@ -10,10 +10,16 @@ const port = 5000;
 app.use('/reservations', reservationRouter);
 
 // Route to trigger sending the email
-app.get('/send-email', (req, res) => {
-    sendEmail(); // Call the sendEmail function
-    res.send('Email sent successfully');
-});
+// app.get('/send-email', (req, res) => {
+//     // sendEmail(); // Call the sendEmail function
+//     sendEmail('davidm@sprintug.com', 'New Reservation', 'reservationEmail', {
+//         name: 'matovu',
+//         email: 'davidmatovu88@gmail.com',
+//         numberOfPeople: 4,
+//     });
+
+//     res.send('Email sent successfully');
+// });
 
 // Connect to the MongoDB database
 mongoose

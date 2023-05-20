@@ -43,12 +43,20 @@ function sendEmail(to, subject, template, context) {
     } else {
         throw new Error('Invalid email template specified');
     }
+
+    const confirmUrl =
+        'http://localhost:5000/reservations/6468c694b2656c770b60f7bb/confirm';
+
     const mailOptions = {
         from: '"david" <david.rb.pmsmaven@gmail.com>',
         to: to,
         subject: subject,
         template: templateName,
-        context: context,
+        // context: context,
+        context: {
+            ...context,
+            confirmUrl: confirmUrl,
+        },
     };
     // trigger the sending of the E-mail
     transporter.sendMail(mailOptions, function (error: any, info: any) {
