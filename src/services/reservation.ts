@@ -1,5 +1,6 @@
 import { Model } from 'mongoose';
 import { Reservation as ReservationModel } from '../models/reservation';
+const sendEmail = require('../nodemailer/emailTransporter'); // Import the sendEmail function
 
 class ReservationService {
     private reservation: Model<ReservationModel>;
@@ -12,17 +13,48 @@ class ReservationService {
         reservationData: any
     ): Promise<ReservationModel> {
         const reservation = new this.reservation(reservationData);
-        return await reservation.save();
+        const createdReservation = await reservation.save();
+
+        // Send email notification to the restaurant
+        const restaurantEmail = 'pmsmaven@gmail.com'; // to be replaced with the restaurant's email address
+        const emailSubject = 'New Reservation!';
+        const emailTemplate = 'reservationEmail'; // from email.handlebars template
+        const emailContext = {
+            name: reservationData.firstName,
+            email: reservationData.email,
+            numberOfPeople: reservationData.numberOfPeople,
+        };
+
+        sendEmail(restaurantEmail, emailSubject, emailTemplate, emailContext);
+
+        return createdReservation;
     }
 
     public async confirmReservation(
         id: string
     ): Promise<ReservationModel | null> {
-        return await this.reservation.findByIdAndUpdate(
+        const reservation = await this.reservation.findByIdAndUpdate(
             id,
             { isActive: true },
             { new: true }
         );
+
+        if (!reservation) {
+            return null;
+        }
+
+        // Send email notification to the client
+        const clientEmail = reservation.email;
+        const emailSubject = 'Reservation Confirmation';
+        const emailTemplate = 'confirmationEmail'; // from the email.handlebars template
+        const emailContext = {
+            name: reservation.firstName,
+            company: 'My Company',
+        };
+
+        sendEmail(clientEmail, emailSubject, emailTemplate, emailContext);
+
+        return reservation;
     }
 }
 
