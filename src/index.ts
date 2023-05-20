@@ -1,6 +1,5 @@
 const express = require('express');
 import mongoose from 'mongoose';
-// import express, { Application } from 'express';
 const reservationRouter = require('./routes/reservationRouter');
 const app = express();
 app.use(express.json());
@@ -11,7 +10,7 @@ app.use('/reservations', reservationRouter);
 // Connect to the MongoDB database
 mongoose
     .connect(
-        'mongodb+srv://david:david@cluster0.bkgfjsx.mongodb.net/reservation-portal'
+        'url'
     )
     .then(() => {
         console.log('Connected to database');

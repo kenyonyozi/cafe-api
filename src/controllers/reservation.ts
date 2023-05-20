@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import ReservationService from '../services/reservation';
+const sendEmail = require('../nodemailer/emailTransporter'); // Import the sendEmail function
 
 class ReservationController {
     private reservationService: ReservationService;
