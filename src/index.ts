@@ -10,7 +10,7 @@ app.use('/reservations', reservationRouter);
 // Connect to the MongoDB database
 mongoose
     .connect(
-        'url'
+        'mongodb+srv://david:<password>@cluster0.bkgfjsx.mongodb.net/reservation-portal'
     )
     .then(() => {
         console.log('Connected to database');

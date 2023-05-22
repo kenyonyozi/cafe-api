@@ -15,7 +15,6 @@ class ReservationController {
     ): Promise<void> => {
         try {
             const reservationData = req.body;
-            console.log(reservationData);
             const reservation = await this.reservationService.createReservation(
                 reservationData
             );
@@ -43,7 +42,6 @@ class ReservationController {
             }
             res.json({
                 message: 'Reservation confirmed successfully',
-                reservation,
             });
         } catch (error) {
             console.error(error);
