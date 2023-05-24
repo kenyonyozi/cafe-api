@@ -6,6 +6,7 @@ export interface Reservation extends Document {
     lastName: string;
     email: string;
     numberOfPeople: number;
+    phoneNumber: number;
     isActive: boolean;
 }
 
@@ -15,6 +16,7 @@ const reservationSchema = new Schema<Reservation>({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     numberOfPeople: { type: Number, required: true },
+    phoneNumber: { type: Number, required: true },
     isActive: { type: Boolean, default: false },
 });
 

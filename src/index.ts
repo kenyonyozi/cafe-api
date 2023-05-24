@@ -1,16 +1,31 @@
 const express = require('express');
 import mongoose from 'mongoose';
+
+const cors = require('cors');
+
+
+require('dotenv').config();
+
+const { PORT } = process.env;
+const { WELCOME_MESSAGE, DATABASE_URL } = process.env;
+
+
 const reservationRouter = require('./routes/reservationRouter');
+
 const app = express();
 app.use(express.json());
-const port = 5000;
+
+
+// app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 
 app.use('/reservations', reservationRouter);
+
 
 // Connect to the MongoDB database
 mongoose
     .connect(
-        'mongodb+srv://david:<password>@cluster0.bkgfjsx.mongodb.net/reservation-portal'
+        DATABASE_URL
     )
     .then(() => {
         console.log('Connected to database');
@@ -19,6 +34,8 @@ mongoose
         console.error('Error connecting to database:', error);
     });
 
-app.listen(port, () => {
-    console.log(`cafePortalProject is listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`cafePortalProject is listening at http://localhost:${PORT}`);
 });
+
+
